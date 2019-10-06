@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Contador from './components/Contador';
+import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
 // REDUX
@@ -10,17 +11,13 @@ import ContadorReducer from './reducers/ContadorReducer'
 
 var store = createStore(ContadorReducer);
 
-const render = () => ReactDOM.render(
-<Contador 
-    value={store.getState()}
-    onIncrementar={ () => store.dispatch({type: 'INCREMENTAR'})}
-    onDecrementar={ () => store.dispatch({type: 'DECREMENTAR'})}
-
-/>, 
+ReactDOM.render(
+    <Provider store={store}>
+        <Contador />
+    </Provider>, 
 document.getElementById('root'));
 
-render()
-store.subscribe(render)
+
 
 
 serviceWorker.unregister();

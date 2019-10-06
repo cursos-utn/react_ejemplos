@@ -1,7 +1,7 @@
-
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class Contador extends React.Component {
+class Contador extends React.Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ export default class Contador extends React.Component {
     render() {
         return (
             <div>
-                <h2>Estado: {this.props.value}</h2>
+                <h2>Estado: {this.props.estado}</h2>
                 <div>
                     <button onClick={this.incrementar}>Incrementar</button>
 
@@ -29,3 +29,18 @@ export default class Contador extends React.Component {
         )
     }
 }
+
+const mapEstadoAProps = (estado) => {
+    return {
+        estado: estado
+    }
+}
+
+const mapAccionesAProps = (dispatch) => {
+    return {
+        onIncrementar: () => dispatch({ type: 'INCREMENTAR' }),
+        onDecrementar: () => dispatch({type: 'DECREMENTAR'}),
+    }
+}
+
+export default connect(mapEstadoAProps, mapAccionesAProps)(Contador);
