@@ -10,6 +10,7 @@ import Pagina2 from './components/Pagina2';
 
 import  { createStore } from 'redux';
 import PruebaReducer from './reducers/PruebaReducer';
+import PaginaConParametros from './components/PaginaConParametros';
 
 var store = createStore(PruebaReducer);
 
@@ -19,7 +20,8 @@ ReactDOM.render(
         <Router>
             <Route exact path="/" component={App} />
             <Route path="/1" component={Pagina1} />
-            <Route path="/2" component={Pagina2} />
+            <Route path="/2" component={Pagina2} />  
+            <Route path="/parametros/:id" component={PaginaConParametros} />            
         </Router>
     </Provider>
     , document.getElementById('root'));

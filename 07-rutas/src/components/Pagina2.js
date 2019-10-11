@@ -11,6 +11,7 @@ class Pagina2 extends React.Component {
     }
 
     redireccionar() {
+        // 
         this.props.history.push('/');
     }
 
