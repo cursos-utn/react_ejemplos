@@ -4,7 +4,7 @@ var toDoService = new ToDoService();
 
 const estadoInicial = {
     taskList: [],
-    token: ''
+    token: '123'
 }
 export default function(estadoActual = estadoInicial, action) 
 {

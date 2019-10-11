@@ -17,7 +17,7 @@ class ToDo extends React.Component {
 
     render() {
         var listado = this.props.listado.map(unItem => {
-            return <ToDoItem item={unItem} />
+            return <ToDoItem item={unItem} key={unItem.id}/>
         })
         return (
             <>
@@ -30,7 +30,7 @@ class ToDo extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        listado: state.taskList
+        listado: state.taskList,
     }
 }
 
