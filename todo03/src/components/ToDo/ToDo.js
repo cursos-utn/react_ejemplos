@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ToDoService from '../../services/ToDoService';
 import ToDoItem from './ToDoItem/ToDoItem';
+import ToDoAddItem from './TodoAddItem/ToDoAddItem';
 
 class ToDo extends React.Component {
     
@@ -22,6 +23,8 @@ class ToDo extends React.Component {
         return (
             <>
                 <h1>ToDo</h1>
+                <ToDoAddItem />
+
                 {listado}
             </>
         )
@@ -40,4 +43,5 @@ const mapActions = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapActions)(ToDo);
+const functionRespuesta = connect(mapStateToProps, mapActions);
+export default functionRespuesta(ToDo);
