@@ -4,7 +4,7 @@ export default class ToDoService {
     
     constructor() {
         this.http = axios;
-        this.serverUrl = 'https://toodoapi220190926085529.azurewebsites.net/api/ToDoItems';
+        this.serverUrl = 'https://todowebapi00123.azurewebsites.net/api/ToDoItems';
     }
 
     async getTareas() {

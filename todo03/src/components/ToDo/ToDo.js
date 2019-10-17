@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import ToDoService from '../../services/ToDoService';
 import ToDoItem from './ToDoItem/ToDoItem';
 import ToDoAddItem from './TodoAddItem/ToDoAddItem';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 class ToDo extends React.Component {
     
@@ -22,7 +25,7 @@ class ToDo extends React.Component {
         })
         return (
             <>
-                <h1>ToDo</h1>
+                <h1>{process.env.REACT_APP_NOMBRE_PROYECTO}</h1>
                 <ToDoAddItem />
 
                 {listado}

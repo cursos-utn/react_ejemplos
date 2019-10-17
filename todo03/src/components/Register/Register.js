@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import LoginService from '../../services/LoginService';
 
-class Login extends React.Component {
+class Register extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ class Login extends React.Component {
     }
 
     async checkLogin() {
-        var respuesta = await this.loginService.login(this.state.email, this.state.password);
+        var respuesta = await this.loginService.register(this.state.email, this.state.password);
         console.log(respuesta);
     }
 
@@ -32,21 +32,16 @@ class Login extends React.Component {
     render() {
         return (
             <div className="login">
-                <h1>Login</h1>
+                <h1>Registración</h1>
                 <div className="input-group mb-3 ">
                   <input type="text" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.cambioInput}/>
                   <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.cambioInput}/>
-                  <button className="btn btn-primary" onClick={this.checkLogin}>Ingresar</button>
+                  <button className="btn btn-primary" onClick={this.checkLogin}>Registrarme</button>
                 </div>
             </div>
         )
     }
 }
 
-const mapToActions = (dispatch) => {
-    return {
-        setToken: (token) => dispatch({type:'SET_TOKEN', token})
-    }
-}
 
-export default connect(null, mapToActions)(Login);
+export default connect(null, null)(Register);
