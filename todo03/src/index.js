@@ -9,6 +9,11 @@ import todoReducer from './store/todoReducer';
 import Login from './components/Login/Login';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Register from './components/Register/Register';
+import dotenv from 'dotenv';
+// Contiene REACT_APP_SERVER que apunta al server (archivo .env)
+dotenv.config();
+
+
 
 const store = createStore(todoReducer);
 

@@ -9,15 +9,21 @@ class Register extends React.Component {
         this.loginService = new LoginService();
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            errores: ''
         }
-        this.checkLogin = this.checkLogin.bind(this);
+        this.register = this.register.bind(this);
         this.cambioInput = this.cambioInput.bind(this);
     }
 
-    async checkLogin() {
-        var respuesta = await this.loginService.register(this.state.email, this.state.password);
-        console.log(respuesta);
+    async register() {
+        try {
+            const respuesta = await this.loginService.register(this.state.email, this.state.password);
+            this.props.setToken(respuesta);
+            this.props.history.push('/');
+        } catch (e) {
+            this.setState({errores: 'Hubo un problema en la conexión con el servidor'});
+        }
     }
 
     cambioInput(e) {
@@ -30,13 +36,20 @@ class Register extends React.Component {
     }    
 
     render() {
+        let mensajeError = '';
+        if (this.state.errores) {
+            mensajeError = <div className='alert alert-danger'>{this.state.errores}</div>
+        }
         return (
-            <div className="login">
-                <h1>Registración</h1>
-                <div className="input-group mb-3 ">
-                  <input type="text" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.cambioInput}/>
-                  <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.cambioInput}/>
-                  <button className="btn btn-primary" onClick={this.checkLogin}>Registrarme</button>
+            <div id="contenedor-login">
+                <div className="login">
+                    <h1>Registración</h1>
+                    {mensajeError}
+                    <div>
+                        <input type="text" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.cambioInput}/>
+                        <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.cambioInput}/>
+                        <button className="btn btn-primary" onClick={this.register}>Registrarme</button>
+                    </div>
                 </div>
             </div>
         )
@@ -44,4 +57,9 @@ class Register extends React.Component {
 }
 
 
-export default connect(null, null)(Register);
+const mapToActions = (dispatch) => {
+    return {
+        setToken: (token) => dispatch({type:'SET_TOKEN', token})
+    }
+}
+export default connect(null, mapToActions)(Register);

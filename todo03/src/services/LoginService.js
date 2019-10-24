@@ -4,7 +4,8 @@ export default class ToDoService {
     
     constructor() {
         this.http = axios;
-        this.serverUrl = 'https://todowebapi00123.azurewebsites.net/api/Account/';
+        // Tomado de .env
+        this.serverUrl = process.env.REACT_APP_SERVER + '/Account/';
     }
 
     async login(email, password) {
@@ -13,18 +14,31 @@ export default class ToDoService {
             email: email,
             password: password
         }
-        var respuesta = await this.http.post(url, obj);
+        var options = {
+            headers: {
+                client: 1
+            }
+        }
+        var respuesta = await this.http.post(url, obj, options);
         return respuesta.data;        
     }
 
     async register(email, password) {
         var url = this.serverUrl + 'Register';
-        console.log(url);
         var obj = {
             email: email,
             password: password
         }
-        var respuesta = await this.http.post(url, obj);
+        var options = {
+            headers: {
+                client: 1
+            }
+        }        
+        var respuesta = await this.http.post(url, obj, options);
+        if (respuesta.data.statusCode===500) {
+            console.log(respuesta);
+            throw new Error(respuesta.data);
+        }
         return respuesta.data;  
     }
 

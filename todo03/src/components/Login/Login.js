@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import LoginService from '../../services/LoginService';
+import {Link} from 'react-router-dom';
 
 class Login extends React.Component {
 
@@ -9,15 +10,21 @@ class Login extends React.Component {
         this.loginService = new LoginService();
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            errores: ''
         }
         this.checkLogin = this.checkLogin.bind(this);
         this.cambioInput = this.cambioInput.bind(this);
     }
 
     async checkLogin() {
-        var respuesta = await this.loginService.login(this.state.email, this.state.password);
-        console.log(respuesta);
+        try {
+            var respuesta = await this.loginService.login(this.state.email, this.state.password);
+            this.props.setToken(respuesta);
+            this.props.history.push('/');
+        } catch (e) {
+            this.setState({errores: 'Hubo un problema en la conexión con el servidor'});
+        }
     }
 
     cambioInput(e) {
@@ -30,13 +37,21 @@ class Login extends React.Component {
     }    
 
     render() {
+        let mensajeError = '';
+        if (this.state.errores) {
+            mensajeError = <div className='alert alert-danger'>{this.state.errores}</div>
+        }        
         return (
-            <div className="login">
-                <h1>Login</h1>
-                <div className="input-group mb-3 ">
-                  <input type="text" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.cambioInput}/>
-                  <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.cambioInput}/>
-                  <button className="btn btn-primary" onClick={this.checkLogin}>Ingresar</button>
+            <div id="contenedor-login">
+                <div className="login">
+                    <h1>Login</h1>
+                    {mensajeError}
+                    <div >
+                        <input type="text" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.cambioInput}/>
+                        <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.cambioInput}/>
+                        <button className="btn btn-primary" onClick={this.checkLogin}>Ingresar</button>
+                        <Link to="/register" className="btn btn-secondary" >Registrarse</Link>
+                    </div>
                 </div>
             </div>
         )

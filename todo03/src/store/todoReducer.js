@@ -1,10 +1,6 @@
-import ToDoService from '../services/ToDoService';
-
-var toDoService = new ToDoService();
-
 const estadoInicial = {
     taskList: [],
-    token: '123',
+    token: '',
     responsablesList : [
         {id: 1, nombre: 'Persona 1'},
         {id: 2, nombre: 'Persona 2'},
